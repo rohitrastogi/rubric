@@ -11,10 +11,10 @@ from rubric.utils import default_generate_fn, parse_json_to_dict
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_SYSTEM_PROMPT = """You are evaluating an output for a given query against a list of \
+DEFAULT_SYSTEM_PROMPT = """You are evaluating a response for a given query against a list of \
 criteria.
 
-You will receive the output to evaluate, and a numbered list of criteria to check. Each \
+You will receive the response to evaluate, and a numbered list of criteria to check. Each \
 criterion is marked as POSITIVE or NEGATIVE and has an associated weight.
 
 Your job is to MENTALLY EVALUATE each criterion using the logic below, compute a weighted \
@@ -22,17 +22,17 @@ score in your head, and return a single holistic score from 0-100.
 
 CRITERION TYPES:
 Each criterion is marked as positive or negative. Your job is THE SAME for both types: \
-determine if the thing described in the criterion is actually present in the output.
+determine if the thing described in the criterion is actually present in the response.
 
 POSITIVE CRITERIA:
 Positive criteria describe desired traits, requirements, or content that should be present.
-- MET (criterion present): The output contains/satisfies the requirement
-- UNMET (criterion absent): The output does not contain/satisfy the requirement
+- MET (criterion present): The response contains/satisfies the requirement
+- UNMET (criterion absent): The response does not contain/satisfy the requirement
 
 NEGATIVE CRITERIA:
-Negative criteria describe ACTIVE ERRORS or MISTAKES that the output is making.
-- MET (error present): The output ADVOCATES, STATES, or RECOMMENDS the problematic thing
-- UNMET (error absent): The output does NOT make this error, OR it mentions the thing only \
+Negative criteria describe ACTIVE ERRORS or MISTAKES that the response is making.
+- MET (error present): The response ADVOCATES, STATES, or RECOMMENDS the problematic thing
+- UNMET (error absent): The response does NOT make this error, OR it mentions the thing only \
 to WARN AGAINST it, CONTRAST with it, or explain why it's WRONG
 
 Examples of what does NOT count as MET for negative criteria:
@@ -55,8 +55,8 @@ phrasing.
 
 CRITERION STATUS:
 "criterion status" has NOTHING to do with quality or correctness. It only means:
-- MET: The thing described in the criterion IS present/occurring in the output
-- UNMET: The thing described in the criterion IS NOT present/occurring in the output
+- MET: The thing described in the criterion IS present/occurring in the response
+- UNMET: The thing described in the criterion IS NOT present/occurring in the response
 
 SCORING PROCESS:
 1. Mentally evaluate each criterion as MET or UNMET using the logic above
@@ -69,19 +69,8 @@ criteria (errors absent) contribute nothing
 7. Clamp the result to 0-100 range
 8. Return this single holistic score
 
-THINKING AND OUTPUT SECTIONS:
-The submission may contain <thinking> and <output> sections:
-- <thinking>: The model's internal reasoning process before answering
-- <output>: The final response presented to the user
-
-Unless a criterion specifically mentions "reasoning", "thinking", or "thought process",
-evaluate ONLY the <output> section. The thinking section shows how the model arrived
-at its answer but is not part of the user-facing response.
-
-If the submission has no section markers, treat the entire text as the output.
-
 Think through each criterion carefully in context, apply the appropriate logic for positive \
-vs negative criteria, and compute a final weighted score that reflects how well the submission \
+vs negative criteria, and compute a final weighted score that reflects how well the response \
 satisfies the rubric as a whole.
 
 Respond ONLY with valid JSON in this exact format:
@@ -133,7 +122,7 @@ class RubricAsJudgeGrader(Autograder):
             )
 
         criteria_text = "\n".join(criteria_lines)
-        query_text = f"<input>{query}</input>" if query else ""
+        query_text = f"<query>{query}</query>" if query else ""
         user_prompt = f"""Mentally evaluate each criterion below, compute the weighted score \
 using the logic from the system prompt, and return a single holistic score from 0-100.
 
@@ -143,9 +132,9 @@ using the logic from the system prompt, and return a single holistic score from 
 
 {query_text}
 
-<submission>
+<response>
 {to_grade}
-</submission>
+</response>
 
 Return your evaluation as JSON only."""
 
@@ -178,8 +167,6 @@ Return your evaluation as JSON only."""
         total_positive_weight = judge_results["total_positive_weight"]
         total_negative_weight = judge_results["total_negative_weight"]
         error = judge_results.get("error")
-
-        # Preserve original LLM output for debugging
         llm_raw_score = llm_score
 
         # Compute synthetic raw_score with weighted-sum semantics
