@@ -50,6 +50,9 @@ __all__ = [
     "PerCriterionGenerateFn",
     "OneShotGenerateFn",
     "RubricAsJudgeGenerateFn",
+    "OneShotOutput",
+    "PerCriterionOutput",
+    "RubricAsJudgeOutput",
 
 ]
 __name__ = "rubric"
