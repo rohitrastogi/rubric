@@ -29,7 +29,7 @@ async def main() -> None:
         rubric=[
             Criterion(weight=2.0, requirement="Response mentions Paris"),
             Criterion(weight=1.0, requirement="Response mentions France"),
-            Criterion(weight=1.0, requirement="Response is factually accurate"),
+            Criterion(weight=1.0, requirement="Response mentions Paris has a rich history"),
             Criterion(weight=-0.5, requirement="Response contains profanity"),
         ]
     )
