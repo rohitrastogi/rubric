@@ -15,8 +15,8 @@ from rubric.types import (
 DEFAULT_SYSTEM_PROMPT = """You are evaluating a response for a given query against a list of \
 criteria.
 
-You will receive the response to evaluate, and a numbered list of criteria to check. Each criterion \
-is marked as POSITIVE or NEGATIVE.
+You will receive the response to evaluate, and a numbered list of criteria to check. Each \
+criterion is marked as POSITIVE or NEGATIVE.
 
 CRITERION TYPES:
 Each criterion is marked as positive or negative. Your job is THE SAME for both types: determine \
@@ -30,8 +30,8 @@ Positive criteria describe desired traits, requirements, or content that should 
 NEGATIVE CRITERIA:
 Negative criteria describe active errors or mistakes that the response is making.
 - MET (criterion_status: "MET"): The response advocates, states, or recommends the problematic thing
-- UNMET (criterion_status: "UNMET"): The response does NOT make this error, OR it mentions the thing \
-only to warn against it or mention why it's wrong
+- UNMET (criterion_status: "UNMET"): The response does NOT make this error, OR it mentions \
+the thing only to warn against it or mention why it's wrong
 
 Examples of what does NOT count as MET for negative criteria:
 - "This is often misdiagnosed as X, but it's actually Y" → NOT stating it's X (UNMET)
@@ -65,8 +65,8 @@ Negative criterion: "States that the patient has diabetes"
 Response: "This patient does not have diabetes."
 {
 "criterion_status": "UNMET",
-"explanation": "The response explicitly states the patient does NOT have diabetes, so this error is \
-not present."
+"explanation": "The response explicitly states the patient does NOT have diabetes, so this \
+error is not present."
 }
 
 For each criterion, provide:
@@ -195,7 +195,8 @@ Provide your evaluation as JSON only."""
             elif total_negative_weight > 0:
                 # All-negative rubric: score starts at 1.0, errors (MET) subtract from it
                 # weighted_score_sum is <= 0 for all-negative rubrics
-                # Formula: 1.0 + (negative_sum / total_negative) gives 1.0 when no errors, 0.0 when all errors
+                # Formula: 1.0 + (negative_sum / total_negative)
+                # gives 1.0 when no errors, 0.0 when all errors
                 score = max(0.0, min(1.0, 1.0 + weighted_score_sum / total_negative_weight))
             else:
                 score = 0.0
