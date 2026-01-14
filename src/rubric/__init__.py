@@ -41,14 +41,8 @@ __all__ = [
     "CriterionReport",
     "EvaluationReport",
     "LengthPenalty",
-    "OneShotGenerateFn",
-    "OneShotOutput",
     "PenaltyType",
-    "PerCriterionGenerateFn",
-    "PerCriterionOutput",
     "Rubric",
-    "RubricAsJudgeGenerateFn",
-    "RubricAsJudgeOutput",
     "ThinkingOutputDict",
     "ToGradeInput",
     "compute_length_penalty",
@@ -58,9 +52,10 @@ __all__ = [
     "normalize_to_grade_input",
     "parse_thinking_output",
     "word_count",
-    "OneShotOutput",
-    "PerCriterionOutput",
-    "RubricAsJudgeOutput",
+    "PerCriterionGenerateFn",
+    "OneShotGenerateFn",
+    "RubricAsJudgeGenerateFn",
+
 ]
 __name__ = "rubric"
 __author__ = "The LLM Data Company"
