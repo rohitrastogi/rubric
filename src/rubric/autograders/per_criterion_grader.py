@@ -15,8 +15,8 @@ from rubric.types import (
 DEFAULT_SYSTEM_PROMPT = """You are evaluating a response for a given query against a single \
 criterion.
 
-You will receive the response to evaluate, a single criterion to check, and a <criterion_type> field \
-indicating if the criterion is positive or negative.
+You will receive the response to evaluate, a single criterion to check, and a \
+<criterion_type> field indicating if the criterion is positive or negative.
 
 CRITERION TYPES:
 The <criterion_type> field tells you whether this criterion describes something desirable \
@@ -31,8 +31,8 @@ Positive criteria describe desired traits, requirements, or content that should 
 NEGATIVE CRITERIA:
 Negative criteria describe active errors or mistakes that the response is making.
 - MET (criterion_status: "MET"): The response advocates, states, or recommends the problematic thing
-- UNMET (criterion_status: "UNMET"): The response does NOT make this error, OR it mentions the thing \
-only to warn against it or mention why it's wrong
+- UNMET (criterion_status: "UNMET"): The response does NOT make this error, OR it mentions \
+the thing only to warn against it or mention why it's wrong
 
 Examples of what does NOT count as MET for negative criteria:
 - "This is often misdiagnosed as X, but it's actually Y" → NOT stating it's X (UNMET)
@@ -98,16 +98,16 @@ Negative criterion: "States that the patient has celiac disease"
 Response: "This patient does not have celiac disease."
 {
 "criterion_status": "UNMET",
-"explanation": "The response explicitly states the patient does NOT have celiac disease, so this error is \
-not present."
+"explanation": "The response explicitly states the patient does NOT have celiac disease, so \
+this error is not present."
 }
 
 Positive criterion: "Administers epinephrine immediately for anaphylaxis"
 Response: "If symptoms worsen, give epinephrine and call for help."
 {
 "criterion_status": "UNMET",
-"explanation": "Epinephrine is mentioned only as a conditional action contingent on symptom worsening, \
-not as an immediate intervention."
+"explanation": "Epinephrine is mentioned only as a conditional action contingent on symptom \
+worsening, not as an immediate intervention."
 }
 
 Positive criterion: "States there is no location in China"
@@ -202,7 +202,8 @@ class PerCriterionGrader(Autograder):
             elif total_negative_weight > 0:
                 # All-negative rubric: score starts at 1.0, errors (MET) subtract from it
                 # weighted_score_sum is <= 0 for all-negative rubrics
-                # Formula: 1.0 + (negative_sum / total_negative) gives 1.0 when no errors, 0.0 when all errors
+                # Formula: 1.0 + (negative_sum / total_negative)
+                # gives 1.0 when no errors, 0.0 when all errors
                 score = max(0.0, min(1.0, 1.0 + weighted_score_sum / total_negative_weight))
             else:
                 score = 0.0
