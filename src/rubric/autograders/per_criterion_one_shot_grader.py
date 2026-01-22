@@ -75,7 +75,8 @@ For each criterion, provide:
 - A criterion_status (MET or UNMET)
 
 IMPORTANT: You must evaluate ALL criteria provided. The criterion_number is 1-indexed (starts at 1,
-not 0) and must match the number shown in the criteria list (1, 2, 3, etc.). Do not skip any criteria.
+not 0) and must match the number shown in the criteria list (1, 2, 3, etc.). 
+Do not skip any criteria.
 
 Do NOT provide an overall score - only evaluate each criterion.
 
