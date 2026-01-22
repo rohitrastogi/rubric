@@ -80,7 +80,7 @@ Respond ONLY with valid JSON in this exact format:
 {
   "criteria_evaluations": [
     {
-      "criterion_number": 1,  // First criterion (1-indexed, not 0)
+      "criterion_number": 1,
       "criterion_status": "MET"
     },
     ...
