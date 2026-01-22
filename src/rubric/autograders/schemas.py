@@ -20,6 +20,7 @@ class PerCriterionOutput(BaseModel):
         ...     criterion_status="MET"
         ... )
     """
+
     criterion_status: Literal["MET", "UNMET"] = Field(
         description="Whether the criterion is present (MET) or absent (UNMET) in the response."
     )
@@ -30,7 +31,10 @@ class CriterionEvaluation(BaseModel):
 
     Used by OneShotOutput to represent each criterion's verdict.
     """
-    criterion_number: int = Field(description="The 1-based index of the criterion being evaluated (starts at 1, not 0).")
+
+    criterion_number: int = Field(
+        description="The 1-based index of the criterion being evaluated (starts at 1, not 0)."
+    )
     criterion_status: Literal["MET", "UNMET"] = Field(
         description="Whether the criterion is present (MET) or absent (UNMET) in the response."
     )
@@ -47,6 +51,7 @@ class OneShotOutput(BaseModel):
         ...     CriterionEvaluation(criterion_number=2, criterion_status="UNMET")
         ... ])
     """
+
     criteria_evaluations: list[CriterionEvaluation] = Field(
         description="List of evaluations for each criterion.", min_length=1
     )
@@ -60,6 +65,7 @@ class RubricAsJudgeOutput(BaseModel):
     Example:
         >>> output = RubricAsJudgeOutput(overall_score=85.0)
     """
+
     overall_score: float = Field(
         description="Holistic score from 0-100 representing overall rubric satisfaction.",
     )
