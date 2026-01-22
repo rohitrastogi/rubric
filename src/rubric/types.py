@@ -21,10 +21,9 @@ class Criterion(BaseModel):
 
 
 class CriterionReport(Criterion):
-    """A criterion with its evaluation verdict (MET/UNMET) and reasoning."""
+    """A criterion with its evaluation verdict (MET/UNMET)."""
 
     verdict: Literal["MET", "UNMET"]
-    reason: str
 
 
 class EvaluationReport(BaseModel):
@@ -53,7 +52,7 @@ class EvaluationReport(BaseModel):
 class PerCriterionGenerateFn(Protocol):
     """Protocol for generate functions used by PerCriterionGrader.
 
-    Must return a validated PerCriterionOutput with criterion_status and explanation.
+    Must return a validated PerCriterionOutput with criterion_status.
     Users should handle parsing, validation, and retries within their implementation.
     """
 

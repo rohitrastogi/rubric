@@ -57,21 +57,17 @@ CRITERION STATUS:
 Positive criterion: "States Q4 2023 base margin as 17.2%"
 Response: "The Q4 2023 base margin was 17.2% before adjustments."
 {
-"explanation": "The response states Q4 2023 base margin as 17.2%, as required.",
 "criterion_status": "MET"
 }
 
 Negative criterion: "States that the patient has diabetes"
 Response: "This patient does not have diabetes."
 {
-"explanation": "The response explicitly states the patient does NOT have diabetes, so this \
-error is not present.",
 "criterion_status": "UNMET"
 }
 
 For each criterion, provide:
 - The criterion_number (1-indexed, matching the number from the criteria list above)
-- An explanation containing a brief justification
 - A criterion_status (MET or UNMET)
 
 IMPORTANT: You must evaluate ALL criteria provided. The criterion_number is 1-indexed (starts at 1,
@@ -84,7 +80,6 @@ Respond ONLY with valid JSON in this exact format:
   "criteria_evaluations": [
     {
       "criterion_number": 1,  // First criterion (1-indexed, not 0)
-      "explanation": "Brief explanation",
       "criterion_status": "MET"
     },
     ...
@@ -161,7 +156,6 @@ Provide your evaluation as JSON only."""
                     CriterionReport(
                         requirement=criterion.requirement,
                         verdict=eval_item.criterion_status,
-                        reason=eval_item.explanation,
                         weight=criterion.weight,
                     )
                 )
@@ -171,7 +165,6 @@ Provide your evaluation as JSON only."""
                     CriterionReport(
                         requirement=criterion.requirement,
                         verdict="UNMET",
-                        reason="Evaluation not found in response",
                         weight=criterion.weight,
                     )
                 )

@@ -74,7 +74,6 @@ satisfies the rubric as a whole.
 
 Respond ONLY with valid JSON in this exact format:
 {
-  "explanation": "Brief explanation of the score.",
   "overall_score": <number 0-100>
 }"""
 
