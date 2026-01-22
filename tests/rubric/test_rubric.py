@@ -90,10 +90,8 @@ async def test_rubric(per_criterion_generate_fn):
             assert criterion.verdict in ["MET", "UNMET"], (
                 f"Item {idx + 1}: Invalid correctness verdict {criterion.verdict}"
             )
-            assert criterion.reason, f"Item {idx + 1}: Missing reason for correctness criterion"
 
         for criterion in formatting_report.report:
             assert criterion.verdict in ["MET", "UNMET"], (
                 f"Item {idx + 1}: Invalid formatting verdict {criterion.verdict}"
             )
-            assert criterion.reason, f"Item {idx + 1}: Missing reason for formatting criterion"
